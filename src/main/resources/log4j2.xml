@@ -23,7 +23,7 @@
     </appenders>
     <loggers>
         <logger name="com.liceyo" level="DEBUG"/>
-        <root level="DEBUG">
+        <root level="INFO">
             <appender-ref ref="Console"/>
             <appender-ref ref="RollingFileInfo"/>
             <appender-ref ref="RollingFileError"/>

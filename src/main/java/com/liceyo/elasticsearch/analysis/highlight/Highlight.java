@@ -2,7 +2,12 @@ package com.liceyo.elasticsearch.analysis.highlight;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.elasticsearch.common.text.Text;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
+
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  * 高亮控制
@@ -49,9 +54,24 @@ public class Highlight {
         highlightBuilder.requireFieldMatch(false);
         highlightBuilder.preTags(PRE_TAGS);
         highlightBuilder.postTags(POST_TAGS);
-        highlightBuilder.highlighterType("plain");
-        highlightBuilder.fragmentSize(50);
+        highlightBuilder.highlighterType("fvh");
+        highlightBuilder.fragmentSize(60);
         highlightBuilder.numOfFragments(2);
         return highlightBuilder;
+    }
+
+    /**
+     * 拼接高亮字段
+     * @param fragments 高亮内容
+     * @return 拼接后内容
+     */
+    public static String jointFragments(HighlightField fragments){
+        Text[] fragmentText = fragments.fragments();
+        if (fragmentText == null) {
+            return null;
+        }
+        return Arrays.stream(fragmentText)
+                .map(Text::toString)
+                .collect(Collectors.joining("..."));
     }
 }

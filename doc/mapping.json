@@ -1,0 +1,158 @@
+{
+  "settings": {
+    "number_of_shards": 1,
+    "analysis": {
+      "analyzer": {
+        "liceyo_ik": {
+          "tokenizer": "ik_max_word",
+          "char_filter": [
+            "liceyo_html_filter"
+          ]
+        },
+        "liceyo_pinyin": {
+          "tokenizer": "ik_max_word",
+          "filter": [
+            "pinyin_mcl",
+            "word_delimiter"
+          ],
+          "char_filter": [
+            "liceyo_html_filter"
+          ]
+        }
+      },
+      "char_filter": {
+        "liceyo_html_filter":{
+          "type": "html_strip"
+        }
+      },
+      "filter": {
+        "pinyin_mcl": {
+          "padding_char": " ",
+          "type": "pinyin",
+          "first_letter": "none"
+        }
+      }
+    }
+  },
+  "mappings": {
+    "liceyo": {
+      "numeric_detection": true,
+      "properties": {
+        "data_id": {
+          "type": "keyword"
+        },
+        "data_title": {
+          "type": "text",
+          "analyzer": "liceyo_ik",
+          "fields": {
+            "pinyin": {
+              "type": "text",
+              "store": false,
+              "analyzer": "liceyo_pinyin",
+              "boost": 0.1
+            }
+          }
+        },
+        "data_content": {
+          "type": "text",
+          "analyzer": "liceyo_ik",
+          "fields": {
+            "pinyin": {
+              "type": "text",
+              "store": false,
+              "analyzer": "liceyo_pinyin",
+              "boost": 0.1
+            }
+          }
+        },
+        "data_type": {
+          "type": "integer"
+        },
+        "news_source_name": {
+          "type": "text",
+          "analyzer": "liceyo_ik",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "news_source_author": {
+          "type": "text",
+          "analyzer": "liceyo_ik",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "news_pub_time": {
+          "type": "date",
+          "format": "epoch_millis||yyyy-MM-dd HH:mm:ss"
+        },
+        "news_source_url": {
+          "type": "text",
+          "index": false
+        },
+        "news_content": {
+          "type": "text",
+          "analyzer": "liceyo_ik"
+        },
+        "news_summary": {
+          "type": "text",
+          "analyzer": "liceyo_ik"
+        },
+        "scr_result": {
+          "type": "text",
+          "analyzer": "liceyo_ik"
+        },
+        "scr_source": {
+          "type": "text",
+          "analyzer": "liceyo_ik",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "scr_conclusion": {
+          "type": "text",
+          "analyzer": "liceyo_ik"
+        },
+        "scr_pub_time": {
+          "type": "date",
+          "format": "epoch_millis||yyyy-MM-dd HH:mm:ss"
+        },
+        "scr_background": {
+          "type": "text",
+          "analyzer": "liceyo_ik"
+        },
+        "scr_magazine": {
+          "type": "text",
+          "analyzer": "liceyo_ik"
+        },
+        "scr_website": {
+          "type": "text",
+          "index": false
+        },
+        "scr_approach": {
+          "type": "text",
+          "analyzer": "liceyo_ik"
+        },
+        "scr_author": {
+          "type": "text",
+          "analyzer": "liceyo_ik",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        }
+      }
+    }
+  }
+}

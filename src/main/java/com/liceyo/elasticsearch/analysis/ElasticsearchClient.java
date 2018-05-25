@@ -29,6 +29,8 @@ public enum  ElasticsearchClient {
 
     private String dataType;
 
+    private String[] searchFiled;
+
     private Logger logger= LogManager.getLogger(ElasticsearchClient.class);
 
     public TransportClient getInstance(){
@@ -40,8 +42,10 @@ public enum  ElasticsearchClient {
             logger.info("start init elasticsearch");
             Properties properties = PropertiesUtil.getProperties(ConstantField.ELASTICSEARCH_PROPERTIES_PATH);
             String clusterName = properties.getProperty(ConstantField.CLUSTER_NAME_FIELD);
-            String clusterSniff= properties.getProperty(ConstantField.CLUSTER_NAME_FIELD);
-            dataType=properties.getProperty(ConstantField.SEARCH_TYPE_FIELD,"dataType");
+            String clusterSniff= properties.getProperty(ConstantField.CLIENT_TRANSPORT_SNIFF_FIELD);
+            this.dataType=properties.getProperty(ConstantField.SEARCH_TYPE_FIELD,"data_type");
+            String searchFiled = properties.getProperty(ConstantField.SEARCH_DEFAULT_FIELD);
+            this.searchFiled= searchFiled==null ? null : searchFiled.split(",");
             Settings settings = Settings.builder()
                     .put(ConstantField.CLUSTER_NAME_FIELD, clusterName)
                     .put(ConstantField.CLIENT_TRANSPORT_SNIFF_FIELD, clusterSniff)
@@ -79,5 +83,9 @@ public enum  ElasticsearchClient {
 
     public String dataType(){
         return dataType;
+    }
+
+    public String[] searchFiled(){
+        return searchFiled;
     }
 }

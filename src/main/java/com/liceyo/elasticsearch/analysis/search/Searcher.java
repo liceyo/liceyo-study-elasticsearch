@@ -1,5 +1,6 @@
 package com.liceyo.elasticsearch.analysis.search;
 
+import com.alibaba.fastjson.JSONObject;
 import com.liceyo.elasticsearch.analysis.ConstantField;
 import com.liceyo.elasticsearch.analysis.ElasticsearchClient;
 import com.liceyo.elasticsearch.analysis.SearchType;
@@ -9,7 +10,9 @@ import org.apache.logging.log4j.Logger;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.builder.SearchSourceBuilder;

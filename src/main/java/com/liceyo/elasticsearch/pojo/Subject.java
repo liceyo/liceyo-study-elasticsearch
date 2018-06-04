@@ -38,6 +38,12 @@ public class Subject{
     @JSONField(name = "data_content")
     private String content;
 
+    /**
+     * 点击次数
+     */
+    @JSONField(name = "hit_count")
+    private Long hitCount;
+
     public String getId() {
         return id;
     }
@@ -76,5 +82,13 @@ public class Subject{
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Long getHitCount() {
+        return hitCount;
+    }
+
+    public void setHitCount(Long hitCount) {
+        this.hitCount = hitCount;
     }
 }

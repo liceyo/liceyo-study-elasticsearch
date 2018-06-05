@@ -44,6 +44,10 @@ public class Subject{
     @JSONField(name = "hit_count")
     private Long hitCount;
 
+    public String textual(){
+        return null;
+    }
+
     public String getId() {
         return id;
     }

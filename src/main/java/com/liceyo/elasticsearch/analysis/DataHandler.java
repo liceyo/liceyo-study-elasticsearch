@@ -1,4 +1,4 @@
-package com.liceyo.elasticsearch.analysis.search;
+package com.liceyo.elasticsearch.analysis;
 
 import com.alibaba.fastjson.JSONObject;
 import com.liceyo.elasticsearch.analysis.ConstantField;
@@ -6,6 +6,8 @@ import com.liceyo.elasticsearch.analysis.ElasticsearchClient;
 import com.liceyo.elasticsearch.analysis.highlight.Highlight;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.elasticsearch.action.index.IndexRequestBuilder;
+import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.xcontent.XContentType;
@@ -27,9 +29,13 @@ public class DataHandler {
      * @param id id
      * @param currentHit 当前点击量
      */
-    public static void hitIncrease(String id,long currentHit){
+    public static void hitIncrease(String id,Long currentHit){
         JSONObject data=new JSONObject();
-        data.put("hit_count",currentHit);
+        long hit=1;
+        if (currentHit!=null){
+            hit=++currentHit;
+        }
+        data.put("hit_count",hit);
         update(id,data);
     }
 
@@ -43,5 +49,18 @@ public class DataHandler {
         return client.prepareUpdate(ConstantField.INDEX_NAME, ConstantField.INDEX_TYPE, id)
                 .setDoc(json.toJSONString(), XContentType.JSON)
                 .execute().actionGet();
+    }
+
+    /**
+     * 插入一条数据
+     * @param json 插入数据
+     * @return 更新结果
+     */
+    public static IndexResponse insert(JSONObject json) {
+        IndexRequestBuilder index = client.prepareIndex(ConstantField.INDEX_NAME, ConstantField.INDEX_TYPE);
+        index.setSource(json.toJSONString(),XContentType.JSON);
+        IndexResponse indexResponse = index.execute().actionGet();
+        logger.debug("插入数据:"+indexResponse.getId());
+        return indexResponse;
     }
 }

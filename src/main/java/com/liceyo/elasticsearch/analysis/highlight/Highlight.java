@@ -30,7 +30,7 @@ public class Highlight {
     /**
      * 默认高亮字段
      */
-    private final static String[] DEFAULT_HIGHLIGHT_FIELD = {"title","content"};
+    private final static String[] DEFAULT_HIGHLIGHT_FIELD = {"data_title","data_content"};
 
     /**
      * 默认高亮字段

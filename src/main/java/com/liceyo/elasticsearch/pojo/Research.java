@@ -1,6 +1,7 @@
 package com.liceyo.elasticsearch.pojo;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.liceyo.elasticsearch.utils.DateUtil;
 
 /**
  * 科学研究
@@ -53,6 +54,18 @@ public class Research extends Subject {
      */
     @JSONField(name = "scr_website")
     private String scrWebsite;
+
+    @Override
+    public String textual() {
+        return scrPubTime+ "," +
+                scrAuthor + "," +
+                scrMagazine + "," +
+                scrSource + "," +
+                scrBackground + "," +
+                scrApproach + "," +
+                scrConclusion + "," +
+                scrResult;
+    }
 
     public String getScrMagazine() {
         return scrMagazine;

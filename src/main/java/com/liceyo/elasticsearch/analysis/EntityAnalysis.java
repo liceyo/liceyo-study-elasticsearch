@@ -31,11 +31,11 @@ public class EntityAnalysis {
         data.setId(hit.getId());
         //解析高亮
         Map<String, HighlightField> highlightFields = hit.getHighlightFields();
-        HighlightField title = highlightFields.get("title");
+        HighlightField title = highlightFields.get("data_title");
         if (title!=null){
             data.setTitle(Highlight.jointFragments(title));
         }
-        HighlightField content = highlightFields.get("content");
+        HighlightField content = highlightFields.get("data_content");
         if (content!=null){
             data.setContent(Highlight.jointFragments(content));
         }
@@ -54,6 +54,8 @@ public class EntityAnalysis {
             String source = response.getSourceAsString();
             T data = JSONObject.parseObject(source, clazz);
             data.setId(response.getId());
+            //少传值
+            data.setContent(null);
             return data;
         }
         return null;

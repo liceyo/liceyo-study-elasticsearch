@@ -26,4 +26,9 @@ public class StatisticsController {
     public BaseAggResult hit(@PathVariable Integer type){
         return statisticsService.hitAgg(type);
     }
+
+    @RequestMapping("/newPubTime")
+    public BaseAggResult newPubTime(){
+        return statisticsService.newsPubTimeAgg();
+    }
 }

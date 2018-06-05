@@ -1,6 +1,7 @@
 package com.liceyo.elasticsearch.pojo;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.liceyo.elasticsearch.utils.DateUtil;
 
 /**
  * 新闻
@@ -44,6 +45,15 @@ public class News extends Subject {
      */
     @JSONField(name = "news_source_name")
     private String newsSourceName;
+
+    @Override
+    public String textual() {
+        return DateUtil.defaultStringToDate(newsPubTime) + "," +
+                newsSourceAuthor + "," +
+                newsSourceName + "," +
+                newsSummary + "," +
+                newsContent;
+    }
 
     public String getNewsSummary() {
         return newsSummary;

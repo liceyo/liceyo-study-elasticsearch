@@ -19,4 +19,10 @@ public interface StatisticsService {
      * @return 统计结果
      */
     BaseAggResult hitAgg(Integer type);
+
+    /**
+     * 新闻发布时间段统计
+     * @return 统计结果
+     */
+    BaseAggResult newsPubTimeAgg();
 }

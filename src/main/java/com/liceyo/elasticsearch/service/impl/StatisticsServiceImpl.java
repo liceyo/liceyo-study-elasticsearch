@@ -1,5 +1,6 @@
 package com.liceyo.elasticsearch.service.impl;
 
+import com.liceyo.elasticsearch.analysis.SearchType;
 import com.liceyo.elasticsearch.analysis.aggs.AbstractAggregation;
 import com.liceyo.elasticsearch.analysis.aggs.AggregationFunctions;
 import com.liceyo.elasticsearch.analysis.aggs.result.BaseAggResult;
@@ -31,5 +32,13 @@ public class StatisticsServiceImpl implements StatisticsService{
         AbstractAggregation hitAgg = AggregationFunctions.hitAgg();
         SearchResponse response = Searcher.searchByAggs(filter,hitAgg.builder());
         return hitAgg.analysis(response.getAggregations());
+    }
+
+    @Override
+    public BaseAggResult newsPubTimeAgg() {
+        QueryBuilder filter = QueryAssembler.typeFilter(SearchType.NEWS.typeValue());
+        AbstractAggregation newsPubTimeAgg = AggregationFunctions.newsPubTimeAgg();
+        SearchResponse response = Searcher.searchByAggs(filter, newsPubTimeAgg.builder());
+        return newsPubTimeAgg.analysis(response.getAggregations());
     }
 }

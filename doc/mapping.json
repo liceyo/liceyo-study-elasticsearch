@@ -43,30 +43,19 @@
         },
         "data_title": {
           "type": "text",
-          "analyzer": "liceyo_ik",
-          "fields": {
-            "pinyin": {
-              "type": "text",
-              "store": false,
-              "analyzer": "liceyo_pinyin",
-              "boost": 0.1
-            }
-          }
+          "term_vector": "with_positions_offsets",
+          "analyzer": "liceyo_ik"
         },
         "data_content": {
           "type": "text",
-          "analyzer": "liceyo_ik",
-          "fields": {
-            "pinyin": {
-              "type": "text",
-              "store": false,
-              "analyzer": "liceyo_pinyin",
-              "boost": 0.1
-            }
-          }
+          "term_vector": "with_positions_offsets",
+          "analyzer": "liceyo_ik"
         },
         "data_type": {
           "type": "integer"
+        },
+        "hit_count":{
+          "type":"long"
         },
         "news_source_name": {
           "type": "text",
@@ -124,7 +113,7 @@
         },
         "scr_pub_time": {
           "type": "date",
-          "format": "epoch_millis||yyyy-MM-dd HH:mm:ss"
+          "format": "epoch_millis||yyyy-MM-dd HH:mm:ss||yyyy/MM/dd HH:mm:ss"
         },
         "scr_background": {
           "type": "text",

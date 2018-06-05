@@ -27,9 +27,4 @@ public class ConstantField {
      * 索引类型
      */
     public final static String INDEX_TYPE="liceyo";
-
-    /**
-     * 区分数据类型的字段名
-     */
-    public final static String DATA_TYPE_FIELD="type";
 }

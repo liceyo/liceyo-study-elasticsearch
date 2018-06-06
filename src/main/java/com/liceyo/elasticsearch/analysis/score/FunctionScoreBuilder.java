@@ -1,5 +1,6 @@
 package com.liceyo.elasticsearch.analysis.score;
 
+import com.liceyo.elasticsearch.analysis.ConstantValue;
 import com.liceyo.elasticsearch.analysis.ElasticsearchClient;
 import com.liceyo.elasticsearch.analysis.SearchType;
 import com.liceyo.elasticsearch.analysis.weight.WordWeightBuilder;
@@ -196,7 +197,7 @@ public class FunctionScoreBuilder {
      * @return
      */
     private FunctionScoreQueryBuilder.FilterFunctionBuilder toFilter(SearchType module, ScoreFunctionBuilder scoreFunctionBuilder) {
-        TermQueryBuilder termQuery = QueryBuilders.termQuery(ElasticsearchClient.INSTANCE.dataType(), module.typeValue());
+        TermQueryBuilder termQuery = QueryBuilders.termQuery(ConstantValue.DATA_TYPE_FILED, module.typeValue());
         return new FunctionScoreQueryBuilder.FilterFunctionBuilder(termQuery, scoreFunctionBuilder);
     }
 }

@@ -29,6 +29,9 @@ public enum  SearchType {
      */
     private float baseWeight;
 
+    /**
+     * 默认的返回结果字段集合
+     */
     private String[] includes;
 
     SearchType(int typeValue,float baseWeight) {

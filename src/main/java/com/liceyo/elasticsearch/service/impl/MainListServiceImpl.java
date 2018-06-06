@@ -1,10 +1,7 @@
 package com.liceyo.elasticsearch.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.liceyo.elasticsearch.analysis.ConstantField;
-import com.liceyo.elasticsearch.analysis.ElasticsearchClient;
-import com.liceyo.elasticsearch.analysis.EntityAnalysis;
-import com.liceyo.elasticsearch.analysis.SearchType;
+import com.liceyo.elasticsearch.analysis.*;
 import com.liceyo.elasticsearch.analysis.score.FunctionScoreBuilder;
 import com.liceyo.elasticsearch.analysis.search.Searcher;
 import com.liceyo.elasticsearch.pojo.AnalysisResult;
@@ -63,7 +60,7 @@ public class MainListServiceImpl implements MainListService {
     @Override
     public Subject analysis(SearchHit hit) {
         Map<String, Object> map = hit.getSourceAsMap();
-        Integer type = (Integer) map.get(ElasticsearchClient.INSTANCE.dataType());
+        Integer type = (Integer) map.get(ConstantValue.DATA_TYPE_FILED);
         if (type==null){
             return null;
         }
@@ -80,6 +77,6 @@ public class MainListServiceImpl implements MainListService {
     @Override
     public Subject getById(String id) {
         GetResponse response = Searcher.get(id);
-       return EntityAnalysis.analysis(response,Subject.class);
+        return EntityAnalysis.analysis(response,Subject.class);
     }
 }

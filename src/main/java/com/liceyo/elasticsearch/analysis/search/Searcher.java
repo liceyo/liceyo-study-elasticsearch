@@ -2,6 +2,7 @@ package com.liceyo.elasticsearch.analysis.search;
 
 import com.alibaba.fastjson.JSONObject;
 import com.liceyo.elasticsearch.analysis.ConstantField;
+import com.liceyo.elasticsearch.analysis.ConstantValue;
 import com.liceyo.elasticsearch.analysis.ElasticsearchClient;
 import com.liceyo.elasticsearch.analysis.SearchType;
 import com.liceyo.elasticsearch.analysis.highlight.Highlight;
@@ -37,7 +38,7 @@ public class Searcher {
 
 
     public static SearchResponse search(SearchSourceBuilder source){
-        SearchResponse response = client.prepareSearch(ConstantField.INDEX_NAME)
+        SearchResponse response = client.prepareSearch(ConstantValue.SEARCH_INDEX_NAME)
                 .setSource(source)
                 .execute().actionGet();
         logger.debug("搜索用时:" + response.getTook());
@@ -98,7 +99,7 @@ public class Searcher {
      * @return 查询结果
      */
     public static GetResponse get(String id){
-        return client.prepareGet(ConstantField.INDEX_NAME,ConstantField.INDEX_TYPE,id).execute().actionGet();
+        return client.prepareGet(ConstantValue.SEARCH_INDEX_NAME,ConstantValue.SEARCH_INDEX_TYPE,id).execute().actionGet();
     }
 
 
@@ -108,7 +109,7 @@ public class Searcher {
      * @return 聚合结果
      */
     public static SearchResponse searchByAggs(AggregationBuilder aggregation){
-        return client.prepareSearch(ConstantField.INDEX_NAME)
+        return client.prepareSearch(ConstantValue.SEARCH_INDEX_NAME)
                 .setSize(0)
                 .addAggregation(aggregation)
                 .execute().actionGet();
@@ -121,7 +122,7 @@ public class Searcher {
      * @return 聚合结果
      */
     public static SearchResponse searchByAggs(QueryBuilder query,AggregationBuilder...aggregations){
-        SearchRequestBuilder builder = client.prepareSearch(ConstantField.INDEX_NAME)
+        SearchRequestBuilder builder = client.prepareSearch(ConstantValue.SEARCH_INDEX_NAME)
                 .setSize(0)
                 .setQuery(query);
         Arrays.stream(aggregations).forEach(builder::addAggregation);

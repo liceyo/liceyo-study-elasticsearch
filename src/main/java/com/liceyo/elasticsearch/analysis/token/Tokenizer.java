@@ -1,6 +1,7 @@
 package com.liceyo.elasticsearch.analysis.token;
 
 import com.liceyo.elasticsearch.analysis.ConstantField;
+import com.liceyo.elasticsearch.analysis.ConstantValue;
 import com.liceyo.elasticsearch.analysis.ElasticsearchClient;
 import org.elasticsearch.action.admin.indices.analyze.AnalyzeAction;
 import org.elasticsearch.action.admin.indices.analyze.AnalyzeRequestBuilder;
@@ -38,7 +39,7 @@ public class Tokenizer {
      * @return 分词结果
      */
     public static AnalyzeResponse token(String statement, String tokenizer) {
-        AnalyzeRequestBuilder requestBuilder = new AnalyzeRequestBuilder(transportClient, AnalyzeAction.INSTANCE, ConstantField.INDEX_NAME, statement);
+        AnalyzeRequestBuilder requestBuilder = new AnalyzeRequestBuilder(transportClient, AnalyzeAction.INSTANCE, ConstantValue.SEARCH_INDEX_NAME, statement);
         requestBuilder.setTokenizer(tokenizer);
         return requestBuilder.execute().actionGet();
     }

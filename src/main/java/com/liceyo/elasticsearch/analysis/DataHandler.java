@@ -13,12 +13,13 @@ import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.xcontent.XContentType;
 
 /**
+ * 数据操作类，主要是插入和更新
  * @author liceyo
  * @version 2018/6/1
  */
 public class DataHandler {
 
-    private static Logger logger= LogManager.getLogger(Highlight.class);
+    private static Logger logger= LogManager.getLogger(DataHandler.class);
 
     private static TransportClient client= ElasticsearchClient.INSTANCE.getInstance();
 
@@ -46,7 +47,7 @@ public class DataHandler {
      * @return 更新结果
      */
     public static UpdateResponse update(String id, JSONObject json) {
-        return client.prepareUpdate(ConstantField.INDEX_NAME, ConstantField.INDEX_TYPE, id)
+        return client.prepareUpdate(ConstantValue.SEARCH_INDEX_NAME, ConstantValue.SEARCH_INDEX_TYPE, id)
                 .setDoc(json.toJSONString(), XContentType.JSON)
                 .execute().actionGet();
     }
@@ -57,7 +58,7 @@ public class DataHandler {
      * @return 更新结果
      */
     public static IndexResponse insert(JSONObject json) {
-        IndexRequestBuilder index = client.prepareIndex(ConstantField.INDEX_NAME, ConstantField.INDEX_TYPE);
+        IndexRequestBuilder index = client.prepareIndex(ConstantValue.SEARCH_INDEX_NAME, ConstantValue.SEARCH_INDEX_TYPE);
         index.setSource(json.toJSONString(),XContentType.JSON);
         IndexResponse indexResponse = index.execute().actionGet();
         logger.debug("插入数据:"+indexResponse.getId());

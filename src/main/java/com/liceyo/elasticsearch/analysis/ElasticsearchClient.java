@@ -27,10 +27,6 @@ public enum  ElasticsearchClient {
      */
     private TransportClient client;
 
-    private String dataType;
-
-    private String[] searchFiled;
-
     private Logger logger= LogManager.getLogger(ElasticsearchClient.class);
 
     public TransportClient getInstance(){
@@ -40,16 +36,16 @@ public enum  ElasticsearchClient {
     ElasticsearchClient() {
         try {
             logger.info("start init elasticsearch");
+            //配置初始化
             Properties properties = PropertiesUtil.getProperties(ConstantField.ELASTICSEARCH_PROPERTIES_PATH);
+            //es配置初始化
             String clusterName = properties.getProperty(ConstantField.CLUSTER_NAME_FIELD);
             String clusterSniff= properties.getProperty(ConstantField.CLIENT_TRANSPORT_SNIFF_FIELD);
-            this.dataType=properties.getProperty(ConstantField.SEARCH_TYPE_FIELD,"data_type");
-            String searchFiled = properties.getProperty(ConstantField.SEARCH_DEFAULT_FIELD);
-            this.searchFiled= searchFiled==null ? null : searchFiled.split(",");
             Settings settings = Settings.builder()
                     .put(ConstantField.CLUSTER_NAME_FIELD, clusterName)
                     .put(ConstantField.CLIENT_TRANSPORT_SNIFF_FIELD, clusterSniff)
                     .build();
+            //客户端
             client = new PreBuiltTransportClient(settings);
             String address = properties.getProperty(ConstantField.CLUSTER_IP_ADDRESS_FIELD);
             if (address != null && !address.isEmpty()) {
@@ -79,13 +75,5 @@ public enum  ElasticsearchClient {
         }else {
             return new TransportAddress(InetAddress.getByName(address), 9300);
         }
-    }
-
-    public String dataType(){
-        return dataType;
-    }
-
-    public String[] searchFiled(){
-        return searchFiled;
     }
 }

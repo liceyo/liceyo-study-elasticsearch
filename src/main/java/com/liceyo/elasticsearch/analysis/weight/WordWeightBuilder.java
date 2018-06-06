@@ -1,5 +1,6 @@
 package com.liceyo.elasticsearch.analysis.weight;
 
+import com.liceyo.elasticsearch.analysis.ConstantValue;
 import com.liceyo.elasticsearch.analysis.ElasticsearchClient;
 import com.liceyo.elasticsearch.analysis.token.Tokenizer;
 import org.elasticsearch.action.admin.indices.analyze.AnalyzeResponse;
@@ -189,7 +190,7 @@ public class WordWeightBuilder {
                 .analyzer(analyzer)
                 .defaultOperator(Operator.OR)
                 .minimumShouldMatch("75%");
-        for (String filed : ElasticsearchClient.INSTANCE.searchFiled()) {
+        for (String filed : ConstantValue.DEFAULT_SEARCH_FILED) {
             builder.field(filed);
         }
         this.resultQuery.must(builder);

@@ -1,6 +1,7 @@
 package com.liceyo.elasticsearch.analysis.search;
 
 import com.liceyo.elasticsearch.analysis.ConstantField;
+import com.liceyo.elasticsearch.analysis.ConstantValue;
 import com.liceyo.elasticsearch.analysis.ElasticsearchClient;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -24,9 +25,9 @@ public class QueryAssembler {
             return null;
         }
         if (types.size()==1){
-            return QueryBuilders.termQuery(ElasticsearchClient.INSTANCE.dataType(),types.get(0));
+            return QueryBuilders.termQuery(ConstantValue.DATA_TYPE_FILED,types.get(0));
         }else {
-            return QueryBuilders.termsQuery(ElasticsearchClient.INSTANCE.dataType(),types);
+            return QueryBuilders.termsQuery(ConstantValue.DATA_TYPE_FILED,types);
         }
     }
 
@@ -36,6 +37,6 @@ public class QueryAssembler {
      * @return 过滤条件
      */
     public static QueryBuilder typeFilter(Integer type){
-        return QueryBuilders.termQuery(ElasticsearchClient.INSTANCE.dataType(),type);
+        return QueryBuilders.termQuery(ConstantValue.DATA_TYPE_FILED,type);
     }
 }

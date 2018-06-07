@@ -2,10 +2,19 @@ package com.liceyo.elasticsearch.analysis.aggs;
 
 import com.liceyo.elasticsearch.analysis.aggs.result.BaseAggResult;
 import com.liceyo.elasticsearch.analysis.aggs.result.AggResult;
+import com.liceyo.elasticsearch.analysis.aggs.result.Coord;
+import org.elasticsearch.search.aggregations.Aggregation;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogramInterval;
+import org.elasticsearch.search.aggregations.bucket.terms.Terms;
+import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
+import org.elasticsearch.search.aggregations.metrics.sum.Sum;
+import org.elasticsearch.search.aggregations.metrics.sum.SumAggregationBuilder;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 聚合函数
@@ -19,15 +28,28 @@ public class AggregationFunctions {
      * @return 聚合对象
      */
     public static AbstractAggregation hitAgg(){
-        return new AbstractAggregation("hitAgg","hit_count") {
+        return new AbstractAggregation("hitAgg","data_type") {
             @Override
             public AggregationBuilder builder() {
-                return AggregationBuilders.terms(name).field(field).size(10);
+                TermsAggregationBuilder builder = AggregationBuilders.terms(name).field(field).size(10);
+                SumAggregationBuilder hitCount = AggregationBuilders.sum("hit").field("hit_count");
+                builder.subAggregation(hitCount);
+                return builder;
             }
             @Override
             public BaseAggResult analysis(Aggregations aggregations) {
-                AggResult result=new AggResult(name,field);
-                result.setData(CommonAnalysis.termAnalysis(aggregations, name));
+                AggResult<Double> result=new AggResult<Double>(name,field);
+                Terms terms =aggregations.get(name);
+                List<? extends Terms.Bucket> buckets = terms.getBuckets();
+                List<Coord<Double>> data = buckets.stream()
+                        .map(bucket -> {
+                            String key = bucket.getKeyAsString();
+                            Sum hit = bucket.getAggregations().get("hit");
+                            Double count = hit.getValue();
+                            return new Coord<Double>(key, count);
+                        }).collect(Collectors.toList());
+                result.setData(data);
+                result.calculateCoordinate();
                 return result;
             }
         };
@@ -51,6 +73,7 @@ public class AggregationFunctions {
             public BaseAggResult analysis(Aggregations aggregations) {
                 AggResult result=new AggResult(name,field);
                 result.setData(CommonAnalysis.histogramAnalysis(aggregations, name));
+                result.calculateCoordinate();
                 return result;
             }
         };

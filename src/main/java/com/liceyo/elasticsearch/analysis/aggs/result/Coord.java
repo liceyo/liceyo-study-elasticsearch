@@ -5,7 +5,7 @@ package com.liceyo.elasticsearch.analysis.aggs.result;
  * @author liceyo
  * @version 2018/6/1
  */
-public class Coord {
+public class Coord<T extends Number> {
     /**
      * 坐标名称
      */
@@ -13,12 +13,12 @@ public class Coord {
     /**
      * 坐标值
      */
-    private Long value;
+    private T value;
 
     public Coord() {
     }
 
-    public Coord(String key, Long value) {
+    public Coord(String key, T value) {
         this.key = key;
         this.value = value;
     }
@@ -31,11 +31,11 @@ public class Coord {
         this.key = key;
     }
 
-    public Long getValue() {
+    public T getValue() {
         return value;
     }
 
-    public void setValue(Long value) {
+    public void setValue(T value) {
         this.value = value;
     }
 }

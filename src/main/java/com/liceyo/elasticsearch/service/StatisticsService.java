@@ -8,13 +8,13 @@ import com.liceyo.elasticsearch.analysis.aggs.result.BaseAggResult;
  */
 public interface StatisticsService {
     /**
-     * 前十点击量统计
+     * 各模块点击量统计
      * @return 统计结果
      */
     BaseAggResult hitAgg();
 
     /**
-     * 前十点击量统计
+     * 模块点击量统计
      * @param type 统计类型
      * @return 统计结果
      */

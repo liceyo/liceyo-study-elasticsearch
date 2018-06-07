@@ -19,16 +19,16 @@ public class BaseController<T extends Subject> {
 
     /**
      * 搜索
-     * @param query 搜索词
+     * @param q 搜索词
      * @param page 页数 默认1
      * @param limit 一页条数 默认10
      * @return 搜索结果
      */
     @RequestMapping("/search")
-    public AnalysisResult<T> search(String query,
+    public AnalysisResult<T> search(String q,
                                     @RequestParam(defaultValue = "1")Integer page,
                                     @RequestParam(defaultValue = "10")Integer limit){
-        return baseService.search(query, page, limit);
+        return baseService.search(q, page, limit);
     }
 
     /**

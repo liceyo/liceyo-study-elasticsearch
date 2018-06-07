@@ -1,0 +1,112 @@
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 1,
+    "analysis": {
+      "filter": {
+        "edge_ngram_filter": {
+          "type": "edgeNGram",
+          "min_gram": 1,
+          "max_gram": 50
+        },
+        "pinyin_simple_filter": {
+          "type": "pinyin",
+          "keep_first_letter": true,
+          "keep_separate_first_letter": false,
+          "keep_full_pinyin": false,
+          "keep_original": false,
+          "limit_first_letter_length": 50,
+          "lowercase": true
+        },
+        "pinyin_full_filter": {
+          "type": "pinyin",
+          "keep_first_letter": false,
+          "keep_separate_first_letter": false,
+          "keep_full_pinyin": true,
+          "none_chinese_pinyin_tokenize": true,
+          "keep_original": false,
+          "limit_first_letter_length": 50,
+          "lowercase": true
+        }
+      },
+      "analyzer": {
+        "liceyo_ngram_index": {
+          "type": "custom",
+          "tokenizer": "keyword",
+          "filter": [
+            "edge_ngram_filter",
+            "lowercase"
+          ]
+        },
+        "liceyo_ngram_search": {
+          "type": "custom",
+          "tokenizer": "keyword",
+          "filter": [
+            "lowercase"
+          ]
+        },
+        "liceyo_ik_index": {
+          "type": "custom",
+          "tokenizer": "ik_smart"
+        },
+        "liceyo_ik_search": {
+          "type": "custom",
+          "tokenizer": "ik_smart"
+        },
+        "liceyo_pinyin_simple_index": {
+          "tokenizer": "keyword",
+          "filter": [
+            "pinyin_simple_filter",
+            "edge_ngram_filter",
+            "lowercase"
+          ]
+        },
+        "liceyo_pinyin_simple_search": {
+          "tokenizer": "keyword",
+          "filter": [
+            "pinyin_simple_filter",
+            "lowercase"
+          ]
+        },
+        "liceyo_pinyin_full_index": {
+          "tokenizer": "keyword",
+          "filter": [
+            "pinyin_full_filter",
+            "lowercase"
+          ]
+        },
+        "liceyo_pinyin_full_search": {
+          "tokenizer": "keyword",
+          "filter": [
+            "pinyin_full_filter",
+            "lowercase"
+          ]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "auto_completion":{
+      "properties": {
+        "auto_completion":{
+          "type": "text",
+          "analyzer": "liceyo_ngram_index",
+          "fields": {
+            "IK":{
+              "type": "text",
+              "analyzer": "liceyo_ik_index"
+            },
+            "SPY":{
+              "type": "text",
+              "analyzer": "liceyo_pinyin_simple_index"
+            },
+            "FPY":{
+              "type": "text",
+              "analyzer": "liceyo_pinyin_full_index"
+            }
+          }
+        }
+      }
+    }
+  }
+}

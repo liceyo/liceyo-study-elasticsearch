@@ -22,11 +22,11 @@ public class CommonAnalysis {
      * @param name 聚合name
      * @return 解析结果
      */
-    public static List<Coord> termAnalysis(Aggregations aggregations, String name){
+    public static List<Coord<Long>> termAnalysis(Aggregations aggregations, String name){
         Terms terms =aggregations.get(name);
         List<? extends Terms.Bucket> buckets = terms.getBuckets();
         return buckets.stream()
-                .map(bucket -> new Coord(bucket.getKeyAsString(), bucket.getDocCount()))
+                .map(bucket -> new Coord<Long>(bucket.getKeyAsString(), bucket.getDocCount()))
                 .collect(Collectors.toList());
     }
 

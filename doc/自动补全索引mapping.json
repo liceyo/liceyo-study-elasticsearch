@@ -2,13 +2,7 @@
   "mappings": {
     "auto_completion": {
       "properties": {
-        "time":{
-          "type": "date"
-        },
-        "count":{
-          "type":"integer"
-        },
-        "autoCompletion": {
+        "auto_completion": {
           "type": "completion",
           "analyzer": "standard",
           "preserve_separators": true,

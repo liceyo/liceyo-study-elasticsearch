@@ -18,7 +18,7 @@ public class AutoCompletionController {
      * @return
      */
     @RequestMapping("/get")
-    public List<String> autoCompletion(String query){
-        return AutoCompletion.autoCompletion(query);
+    public List<String> autoCompletion(String q){
+        return AutoCompletion.highAutoCompletion(q);
     }
 }

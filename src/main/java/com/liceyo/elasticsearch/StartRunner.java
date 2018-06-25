@@ -1,7 +1,7 @@
 package com.liceyo.elasticsearch;
 
 
-import com.liceyo.elasticsearch.analysis.ElasticsearchClient;
+import com.liceyo.elasticsearch.elastic.ElasticsearchClient;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.elasticsearch.cluster.node.DiscoveryNode;
@@ -13,10 +13,8 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * @desc: 启动运行
- * 检查是否有超级账户，没有就新加个
- * @author: fuxiang
- * @date: 2017/8/9 9:10
+ * @author liceyo
+ * @date 2018/5/14
  */
 @Component
 @Order(1)

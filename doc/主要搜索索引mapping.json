@@ -2,34 +2,63 @@
   "settings": {
     "number_of_shards": 1,
     "analysis": {
+      "filter": {
+        "pinyin_simple_filter": {
+          "type": "pinyin",
+          "keep_first_letter": true,
+          "keep_separate_first_letter": false,
+          "keep_full_pinyin": false,
+          "keep_original": false,
+          "limit_first_letter_length": 50,
+          "lowercase": true
+        },
+        "pinyin_full_filter": {
+          "type": "pinyin",
+          "keep_first_letter": false,
+          "keep_separate_first_letter": false,
+          "keep_full_pinyin": true,
+          "none_chinese_pinyin_tokenize": true,
+          "keep_original": false,
+          "limit_first_letter_length": 50,
+          "lowercase": true
+        }
+      },
       "analyzer": {
-        "liceyo_ik": {
-          "tokenizer": "ik_max_word",
-          "char_filter": [
-            "liceyo_html_filter"
+        "liceyo_ik_index": {
+          "type": "custom",
+          "tokenizer": "ik_max_word"
+        },
+        "liceyo_ik_search": {
+          "type": "custom",
+          "tokenizer": "ik_smart"
+        },
+        "liceyo_pinyin_simple_index": {
+          "tokenizer": "ik_smart",
+          "filter": [
+            "pinyin_simple_filter",
+            "lowercase"
           ]
         },
-        "liceyo_pinyin": {
-          "tokenizer": "ik_max_word",
+        "liceyo_pinyin_simple_search": {
+          "tokenizer": "ik_smart",
           "filter": [
-            "pinyin_mcl",
-            "word_delimiter"
-          ],
-          "char_filter": [
-            "liceyo_html_filter"
+            "pinyin_simple_filter",
+            "lowercase"
           ]
-        }
-      },
-      "char_filter": {
-        "liceyo_html_filter":{
-          "type": "html_strip"
-        }
-      },
-      "filter": {
-        "pinyin_mcl": {
-          "padding_char": " ",
-          "type": "pinyin",
-          "first_letter": "none"
+        },
+        "liceyo_pinyin_full_index": {
+          "tokenizer": "ik_smart",
+          "filter": [
+            "pinyin_full_filter",
+            "lowercase"
+          ]
+        },
+        "liceyo_pinyin_full_search": {
+          "tokenizer": "ik_smart",
+          "filter": [
+            "pinyin_full_filter",
+            "lowercase"
+          ]
         }
       }
     }
@@ -44,12 +73,32 @@
         "data_title": {
           "type": "text",
           "term_vector": "with_positions_offsets",
-          "analyzer": "liceyo_ik"
+          "analyzer": "liceyo_ik_index",
+          "fields":{
+            "spy":{
+              "type":"text",
+              "analyzer":"liceyo_pinyin_simple_index"
+            },
+            "fpy":{
+              "type":"text",
+              "analyzer":"liceyo_pinyin_full_index"
+            }
+          }
         },
         "data_content": {
           "type": "text",
           "term_vector": "with_positions_offsets",
-          "analyzer": "liceyo_ik"
+          "analyzer": "liceyo_ik_index",
+          "fields":{
+            "spy":{
+              "type":"text",
+              "analyzer":"liceyo_pinyin_simple_index"
+            },
+            "fpy":{
+              "type":"text",
+              "analyzer":"liceyo_pinyin_full_index"
+            }
+          }
         },
         "data_type": {
           "type": "integer"
@@ -59,23 +108,11 @@
         },
         "news_source_name": {
           "type": "text",
-          "analyzer": "liceyo_ik",
-          "fields": {
-            "keyword": {
-              "type": "keyword",
-              "ignore_above": 256
-            }
-          }
+          "analyzer": "keyword"
         },
         "news_source_author": {
           "type": "text",
-          "analyzer": "liceyo_ik",
-          "fields": {
-            "keyword": {
-              "type": "keyword",
-              "ignore_above": 256
-            }
-          }
+          "analyzer": "keyword"
         },
         "news_pub_time": {
           "type": "date",
@@ -87,29 +124,23 @@
         },
         "news_content": {
           "type": "text",
-          "analyzer": "liceyo_ik"
+          "analyzer": "keyword"
         },
         "news_summary": {
           "type": "text",
-          "analyzer": "liceyo_ik"
+          "analyzer": "keyword"
         },
         "scr_result": {
           "type": "text",
-          "analyzer": "liceyo_ik"
+          "analyzer": "keyword"
         },
         "scr_source": {
           "type": "text",
-          "analyzer": "liceyo_ik",
-          "fields": {
-            "keyword": {
-              "type": "keyword",
-              "ignore_above": 256
-            }
-          }
+          "analyzer": "keyword"
         },
         "scr_conclusion": {
           "type": "text",
-          "analyzer": "liceyo_ik"
+          "analyzer": "keyword"
         },
         "scr_pub_time": {
           "type": "date",
@@ -117,11 +148,11 @@
         },
         "scr_background": {
           "type": "text",
-          "analyzer": "liceyo_ik"
+          "analyzer": "keyword"
         },
         "scr_magazine": {
           "type": "text",
-          "analyzer": "liceyo_ik"
+          "analyzer": "keyword"
         },
         "scr_website": {
           "type": "text",
@@ -129,17 +160,11 @@
         },
         "scr_approach": {
           "type": "text",
-          "analyzer": "liceyo_ik"
+          "analyzer": "keyword"
         },
         "scr_author": {
           "type": "text",
-          "analyzer": "liceyo_ik",
-          "fields": {
-            "keyword": {
-              "type": "keyword",
-              "ignore_above": 256
-            }
-          }
+          "analyzer": "keyword"
         }
       }
     }

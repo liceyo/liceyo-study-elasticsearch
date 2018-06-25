@@ -1,9 +1,9 @@
 package com.liceyo.elasticsearch.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.liceyo.elasticsearch.analysis.*;
-import com.liceyo.elasticsearch.analysis.score.FunctionScoreBuilder;
-import com.liceyo.elasticsearch.analysis.search.Searcher;
+import com.liceyo.elasticsearch.elastic.*;
+import com.liceyo.elasticsearch.elastic.score.FunctionScoreBuilder;
+import com.liceyo.elasticsearch.elastic.search.Searcher;
 import com.liceyo.elasticsearch.pojo.AnalysisResult;
 import com.liceyo.elasticsearch.pojo.News;
 import com.liceyo.elasticsearch.pojo.Subject;

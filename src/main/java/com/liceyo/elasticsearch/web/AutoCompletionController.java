@@ -1,6 +1,6 @@
 package com.liceyo.elasticsearch.web;
 
-import com.liceyo.elasticsearch.analysis.completion.AutoCompletion;
+import com.liceyo.elasticsearch.elastic.completion.AutoCompletion;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

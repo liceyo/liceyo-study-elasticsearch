@@ -1,6 +1,6 @@
 package com.liceyo.elasticsearch.service;
 
-import com.liceyo.elasticsearch.analysis.aggs.result.BaseAggResult;
+import com.liceyo.elasticsearch.elastic.aggs.result.BaseAggResult;
 
 /**
  * @author liceyo

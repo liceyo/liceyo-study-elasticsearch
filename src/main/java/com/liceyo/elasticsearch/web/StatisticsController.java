@@ -1,6 +1,6 @@
 package com.liceyo.elasticsearch.web;
 
-import com.liceyo.elasticsearch.analysis.aggs.result.BaseAggResult;
+import com.liceyo.elasticsearch.elastic.aggs.result.BaseAggResult;
 import com.liceyo.elasticsearch.service.StatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;

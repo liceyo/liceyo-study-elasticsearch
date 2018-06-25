@@ -1,6 +1,6 @@
 package com.liceyo.elasticsearch;
 
-import com.liceyo.elasticsearch.analysis.ElasticsearchClient;
+import com.liceyo.elasticsearch.elastic.ElasticsearchClient;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.elasticsearch.cluster.node.DiscoveryNode;

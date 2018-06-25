@@ -1,6 +1,6 @@
 package com.liceyo.elasticsearch.web;
 
-import com.liceyo.elasticsearch.analysis.DataHandler;
+import com.liceyo.elasticsearch.elastic.DataHandler;
 import com.liceyo.elasticsearch.pojo.AnalysisResult;
 import com.liceyo.elasticsearch.pojo.Subject;
 import com.liceyo.elasticsearch.service.BaseService;

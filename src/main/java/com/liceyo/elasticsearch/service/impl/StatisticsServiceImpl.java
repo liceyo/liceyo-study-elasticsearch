@@ -1,11 +1,11 @@
 package com.liceyo.elasticsearch.service.impl;
 
-import com.liceyo.elasticsearch.analysis.SearchType;
-import com.liceyo.elasticsearch.analysis.aggs.AbstractAggregation;
-import com.liceyo.elasticsearch.analysis.aggs.AggregationFunctions;
-import com.liceyo.elasticsearch.analysis.aggs.result.BaseAggResult;
-import com.liceyo.elasticsearch.analysis.search.QueryAssembler;
-import com.liceyo.elasticsearch.analysis.search.Searcher;
+import com.liceyo.elasticsearch.elastic.SearchType;
+import com.liceyo.elasticsearch.elastic.aggs.AbstractAggregation;
+import com.liceyo.elasticsearch.elastic.aggs.AggregationFunctions;
+import com.liceyo.elasticsearch.elastic.aggs.result.BaseAggResult;
+import com.liceyo.elasticsearch.elastic.search.QueryAssembler;
+import com.liceyo.elasticsearch.elastic.search.Searcher;
 import com.liceyo.elasticsearch.service.StatisticsService;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilder;

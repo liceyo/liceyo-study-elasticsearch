@@ -33,10 +33,12 @@ public class EntityAnalysis {
         //解析高亮
         Map<String, HighlightField> highlightFields = hit.getHighlightFields();
         HighlightField title = highlightFields.get("data_title");
+        title=title !=null ? title:highlightFields.get("data_title.fpy");
         if (title!=null){
             data.setTitle(Highlight.jointFragments(title));
         }
         HighlightField content = highlightFields.get("data_content");
+        content= content!=null ? content:highlightFields.get("data_content.fpy");
         if (content!=null){
             data.setContent(Highlight.jointFragments(content));
         }

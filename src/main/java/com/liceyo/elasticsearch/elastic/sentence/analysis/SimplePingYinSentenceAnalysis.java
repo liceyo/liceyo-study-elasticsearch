@@ -3,10 +3,13 @@ package com.liceyo.elasticsearch.elastic.sentence.analysis;
 import com.liceyo.elasticsearch.elastic.ConstantValue;
 import com.liceyo.elasticsearch.elastic.sentence.Analyzer;
 import com.liceyo.elasticsearch.elastic.sentence.SentenceAnalysis;
+import com.liceyo.elasticsearch.elastic.token.Tokenizer;
 import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.QueryStringQueryBuilder;
+
+import java.util.List;
 
 /**
  * @author liceyo

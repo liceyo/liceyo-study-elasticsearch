@@ -19,7 +19,12 @@ public enum Analyzer {
     /**
      * 通过拼音分词全拼
      */
-    TOKEN_FPY("liceyo_pinyin_full_search");
+    TOKEN_FPY("liceyo_pinyin_full_search"),
+
+    /**
+     * 通过keyword分词
+     */
+    TOKEN_KEYWORD("keyword");
 
     /**
      * 分词器
